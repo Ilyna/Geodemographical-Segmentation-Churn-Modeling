@@ -1,0 +1,25 @@
+# Log started 2018-06-12 22:23
+# Record of session commands.  Please note that this will
+# likely require editing if it is to be run as a script.
+open \
+  "C:\Users\Yann-bor Wen\Desktop\Modeling Section\4. Geodemographical Segmentation\Churn-Modelling.csv"
+dummify Gender
+dummify Geography
+rename 19 Germany
+rename 15 Female
+# model 1
+logit Exited 0 CreditScore Age NumOfProducts IsActiveMember Female \
+  Germany Tenure
+Log_Balance = log10(Balance + 1)
+# model 2
+logit Exited 0 CreditScore Age NumOfProducts IsActiveMember Female \
+  Germany Tenure Log_Balance
+fcast 1 10000 --static
+# model 2
+fcast 1 10000 P_hat
+# store \
+  "C:\Users\Yann-bor Wen\Desktop\Modeling Section\4. Geodemographical Segmentation\Churn-Modelling - forecast.csv" \
+   RowNumber Exited P_hat --csv
+# store \
+  "C:\Users\Yann-bor Wen\Desktop\Modeling Section\4. Geodemographical Segmentation\Churn-Modelling - forecast.csv" \
+   RowNumber Exited P_hat --csv

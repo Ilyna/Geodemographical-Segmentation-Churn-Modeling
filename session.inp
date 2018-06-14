@@ -1,0 +1,28 @@
+# Log started 2018-06-12 20:52
+# Record of session commands.  Please note that this will
+# likely require editing if it is to be run as a script.
+run C:\Users\Yann-bor Wen\Desktop\Modeling Section\4. Geodemographical \
+  Segmentation\session.inp
+Log_Balance = log10(Balance +1)
+# model 8
+logit Exited 0 CreditScore Age NumOfProducts Tenure IsActiveMember Female \
+  Germany Log_Balance
+WealthAccumuation = Balance/Age
+# model 9
+logit Exited 0 CreditScore Age NumOfProducts Tenure IsActiveMember Female \
+  Germany Log_Balance WealthAccumuation
+# model 10
+logit Exited 0 CreditScore Age NumOfProducts Tenure IsActiveMember Female \
+  Germany WealthAccumuation
+# model 11
+logit Exited 0 CreditScore Age NumOfProducts Tenure IsActiveMember Female \
+  Germany WealthAccumuation --p-values
+Log_WA = log10(Balance/Age +1)
+# model 12
+logit Exited 0 CreditScore Age NumOfProducts Tenure IsActiveMember Female \
+  Germany Log_WA Log_Balance --p-values
+# model 13
+logit Exited 0 CreditScore Age NumOfProducts Tenure IsActiveMember Female \
+  Germany Log_Balance --p-values
+corr Age Log_Balance WealthAccumuation Log_WA
+corr Log_WA WealthAccumuation Log_Balance Age

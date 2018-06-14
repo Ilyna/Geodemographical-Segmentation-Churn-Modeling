@@ -1,0 +1,22 @@
+# Log started 2018-06-13 14:07
+# Record of session commands.  Please note that this will
+# likely require editing if it is to be run as a script.
+open \
+  "C:\Users\Yann-bor Wen\Desktop\Modeling Section\4. Geodemographical Segmentation\With Test Data Appended.xlsx"
+dummify Gender
+dummify Geography
+rename 17 France
+rename 18 Spain
+rename 19 Germany
+rename 15 Female
+rename 16 Male
+Log_Balance = log10(Balance+1)
+# model 1
+logit Exited 0 CreditScore Age NumOfProducts IsActiveMember Female \
+  Germany Log_Balance --p-values
+fcast 10001 11000 --static
+# model 1
+fcast 10001 11000 P_hat_testdata
+# store \
+  "C:\Users\Yann-bor Wen\Desktop\Modeling Section\4. Geodemographical Segmentation\With Test Data Appended - forecast.csv" \
+   RowNumber P_hat_testdata --csv
